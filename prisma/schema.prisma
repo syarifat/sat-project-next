@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// --- TABEL LAMA (PRODUK DIGITAL) ---
+model Project {
+  id          Int      @id @default(autoincrement())
+  name        String
+  category    String
+  description String   @db.Text
+  image       String?
+  tech_stack  Json
+  demo_url    String?
+  demo_user   String?
+  demo_pass   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// --- TABEL BARU ---
+
+// Tabel untuk Login Admin
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String   // Password akan kita enkripsi (hash) nanti
+  name      String   @default("Super Admin")
+  createdAt DateTime @default(now())
+}
+
+// Tabel Khusus Joki Coding
+model Joki {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  icon        String   @default("FaCode")
+  features    Json     // Array string fitur
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Tabel Khusus Jasa Jaringan
+model Network {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  icon        String   @default("FaNetworkWired")
+  features    Json     // Array string fitur
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
