@@ -1,6 +1,13 @@
-export { default } from "next-auth/middleware"
+import { withAuth } from "next-auth/middleware";
 
-export const config = {
-  // Semua halaman di dalam folder /admin akan dilindungi
-  matcher: ["/admin/:path*"]
-}
+// Export default berupa fungsi middleware dari NextAuth
+export default withAuth({
+  pages: {
+    signIn: "/login",
+  },
+});
+
+// Pastikan matcher-nya benar untuk memproteksi folder admin
+export const config = { 
+  matcher: ["/admin/:path*"] 
+};
